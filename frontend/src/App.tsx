@@ -1,53 +1,65 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './lib/auth-context';
+import { ProtectedRoute, PublicOnlyRoute } from './lib/protected-route';
+
+// Pages
+import { HomePage } from './pages/home';
+import { LoginPage } from './pages/login';
+import { RegisterPage } from './pages/register';
+import { DashboardPage } from './pages/dashboard';
+import { ProfilePage } from './pages/profile';
+import { NotFoundPage } from './pages/not-found';
 
 function App() {
-  const [apiStatus, setApiStatus] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const checkApiStatus = async () => {
-    setLoading(true);
-    try {
-      // Replace with your actual API URL when deployed
-      const response = await fetch('http://localhost:8787');
-      const data = await response.json();
-      setApiStatus(data.message);
-    } catch (error) {
-      setApiStatus('Error connecting to API');
-      console.error('API connection error:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="container">
-      <h1>SubXiv</h1>
-      <h2>Next-Gen arXiv Monitoring App</h2>
-      
-      <div className="card">
-        <p>
-          A personalized research monitoring system where users define their intellectual 
-          interests through natural language prompts and structured filters to receive 
-          curated arXiv updates.
-        </p>
-        
-        <button onClick={checkApiStatus} disabled={loading}>
-          {loading ? 'Checking API...' : 'Check API Status'}
-        </button>
-        
-        {apiStatus && (
-          <div className="api-status">
-            <p><strong>API Response:</strong> {apiStatus}</p>
-          </div>
-        )}
-      </div>
-      
-      <p className="read-the-docs">
-        Coming soon: AI-assisted paper analysis, advanced notifications, and collaborative knowledge dashboards.
-      </p>
-    </div>
-  )
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<HomePage />} />
+          
+          {/* Auth routes - only accessible when not logged in */}
+          <Route 
+            path="/login" 
+            element={
+              <PublicOnlyRoute>
+                <LoginPage />
+              </PublicOnlyRoute>
+            } 
+          />
+          <Route 
+            path="/register" 
+            element={
+              <PublicOnlyRoute>
+                <RegisterPage />
+              </PublicOnlyRoute>
+            } 
+          />
+          
+          {/* Protected routes - only accessible when logged in */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* 404 route */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
