@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "hono": "^3.5.0",
+    "drizzle-orm": "^0.28.6",
+    "@cloudflare/workers-types": "^4.20230821.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.19.13",
+    "typescript": "^5.0.2",
+    "vitest": "^0.34.6",
+    "wrangler": "^3.8.0"
+  }
+}

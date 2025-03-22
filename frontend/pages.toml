@@ -1,0 +1,19 @@
+[build]
+command = "npm run build"
+build_dir = "dist"
+
+[site]
+bucket = "./dist"
+entry-point = "."
+
+[env.production]
+NODE_ENV = "production"
+API_URL = "https://subxiv-api.yourdomain.workers.dev"
+
+[env.staging]
+NODE_ENV = "production"
+API_URL = "https://staging-subxiv-api.yourdomain.workers.dev"
+
+[env.development]
+NODE_ENV = "development"
+API_URL = "http://localhost:8787"
