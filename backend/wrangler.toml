@@ -1,0 +1,17 @@
+name = "subxiv-api"
+main = "src/index.ts"
+compatibility_date = "2023-09-01"
+
+# Add D1 database binding
+# [d1_databases]
+# DATABASE_NAME = { binding = "DB" }
+
+# Add KV namespace binding (optional)
+# [[kv_namespaces]]
+# binding = "KV"
+# id = "your-kv-namespace-id"
+
+# Configure routes for deployed worker
+# routes = [
+#   { pattern = "api.yourdomain.com", custom_domain = true }
+# ]
