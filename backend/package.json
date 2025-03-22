@@ -8,12 +8,19 @@
     "build": "wrangler deploy --dry-run",
     "deploy": "wrangler deploy",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply subxiv_db --local",
+    "db:setup": "node scripts/setup-local-db.js"
   },
   "dependencies": {
     "hono": "^3.5.0",
     "drizzle-orm": "^0.28.6",
-    "@cloudflare/workers-types": "^4.20230821.0"
+    "@cloudflare/workers-types": "^4.20230821.0",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "better-auth": "^1.2.4",
+    "zod": "^3.22.4",
+    "@hono/zod-validator": "^0.1.11"
   },
   "devDependencies": {
     "drizzle-kit": "^0.19.13",

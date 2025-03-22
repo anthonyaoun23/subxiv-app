@@ -3,8 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2023-09-01"
 
 # Add D1 database binding
-# [d1_databases]
-# DATABASE_NAME = { binding = "DB" }
+[d1_databases]
+DB = { binding = "DB" }
 
 # Add KV namespace binding (optional)
 # [[kv_namespaces]]
